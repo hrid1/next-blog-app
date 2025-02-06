@@ -19,19 +19,35 @@ const AddNewBlog = ({
   blogFormData,
   setBlogFormData,
   handleSaveBlog,
+  editBlogId,
+  setEditBlogId,
 }) => {
+  console.log(editBlogId);
   return (
     <div>
       {/* dialog button */}
       <div>
-        <Button onClick={() => setOpenBlogDialog(true)}>Add Blog</Button>
+        <Button
+          onClick={() => {
+            setOpenBlogDialog(true),
+              setBlogFormData({
+                title: "",
+                description: "",
+              });
+            setEditBlogId(null);
+          }}
+        >
+          Add Blog
+        </Button>
       </div>
 
       {/* dialog details form */}
       <Dialog open={openBlogDialog} onOpenChange={setOpenBlogDialog}>
         <DialogContent className="sm:max-w-[425px]">
           <DialogHeader>
-            <DialogTitle>Edit profile</DialogTitle>
+            <DialogTitle>
+              {editBlogId === null ? "Add Blog" : "Update Blog"}
+            </DialogTitle>
             <DialogDescription>
               Make changes to your profile here. Click save when you're done.
             </DialogDescription>
@@ -74,7 +90,7 @@ const AddNewBlog = ({
           </div>
           <DialogFooter>
             <Button onClick={handleSaveBlog} type="submit">
-              Save changes
+              {editBlogId === null ? "Save Blog" : "Update Blog"}
             </Button>
           </DialogFooter>
         </DialogContent>
